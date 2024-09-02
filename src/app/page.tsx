@@ -6,6 +6,6 @@ export const metadata = {
 export default function Home() {
   return (
 
-    <Link href={"/login"}>rj</Link>
+    <Link href={"/404"}>rj</Link>
   );
 }

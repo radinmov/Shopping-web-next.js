@@ -10,7 +10,7 @@ export default function Login() {
 
 
   useEffect(() => {
-    document.title = 'Login';
+    document.title = 'SignUp';
   }, []);
 
 
