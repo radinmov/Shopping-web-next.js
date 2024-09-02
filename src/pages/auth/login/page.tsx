@@ -1,7 +1,7 @@
-'use client'
+
 import { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import Image from 'next/image';
-import "./Style.css"
+
 
 export default function Login() {
   const [name, SetName] = useState(null)
@@ -10,7 +10,7 @@ export default function Login() {
 
 
   useEffect(() => {
-    document.title = 'SignUp';
+    document.title = 'Login';
   }, []);
 
 
