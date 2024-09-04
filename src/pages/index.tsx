@@ -1,19 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Header from '../components/header/page';
-import Login from './auth/register';
-import Home from './home/page';
+import Cart from '../components/cart/page';
+import Footer from '../components/footer/page';
 
- 
+export default function App() {
+  useEffect(() => {
+    document.title = 'Home ';
+  }, []);
 
-export default function App () {
   return (
     <div>
-
       <Header />
-
-      <Home />
-
-
+      <Cart />
+      <Footer />
     </div>
   );
 }
