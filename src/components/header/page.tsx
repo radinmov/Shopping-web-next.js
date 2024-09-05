@@ -21,10 +21,10 @@ export default function Header (){
         <div className="text-xl font-bold">Exclusive</div>
         
         <nav className="flex space-x-8">
-          <a href="#" className="text-black font-semibold underline">Home</a>
+          <a href="/" className="text-black font-semibold underline">Home</a>
           <a href="#" className="text-gray-600 hover:text-black">Contact</a>
           <a href="#" className="text-gray-600 hover:text-black">About</a>
-          <a href="#" className="text-gray-600 hover:text-black">Sign Up</a>
+          <a href="/auth/login" className="text-gray-600 hover:text-black">Account</a>
         </nav>
 
         <div className="flex items-center space-x-4">
