@@ -22,9 +22,7 @@ export default function Register() {
               <span className="text-xs text-center text-gray-500 uppercase">Or</span>
               <span className="border-b w-1/5 lg:w-1/4"></span>
             </div>
-            <div className='linker m-4'>
-            <Link className='bg-blue-400 rounded-md font-bold h-20 text-center' target='__blanck' href={"https://t.me/OrderShopingBot"}>Register with telegram</Link>
-            </div>
+            <Link className='bg-blue-400 rounded-md font-bold h-20 text-center leading-snug	' target='__blanck' href={"https://t.me/OrderShopingBot"}>Register with telegram</Link>
             <p className="mt-4 text-sm text-center text-gray-500">
               Already have an account? <a href="/auth/login" className="text-blue-500">Sign In</a>
             </p>

@@ -6,7 +6,7 @@ const Footer: React.FC = () => {
   return (
     <footer className="bg-black text-white py-10">
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-        
+
         <DropdownFooter title="Support">
           <address className="not-italic mb-4">
             111 Bijoy sarani, Dhaka, <br />
@@ -17,7 +17,7 @@ const Footer: React.FC = () => {
           <p>+88015-88888-9999</p>
           <p><a href="mailto:exclusive@gmail.com" className="hover:underline">exclusive@gmail.com</a></p>
         </DropdownFooter>
-        
+
         <DropdownFooter title="Account">
           <ul>
             <li className="mb-2">
@@ -26,7 +26,7 @@ const Footer: React.FC = () => {
               </Link>
             </li>
             <li className="mb-2">
-              <Link href="/login">
+              <Link href="/auth/login">
                 <div className="hover:underline">Login / Register</div>
               </Link>
             </li>
@@ -72,7 +72,7 @@ const Footer: React.FC = () => {
             </li>
           </ul>
         </DropdownFooter>
-        
+
       </div>
       <div className="container mx-auto mt-8 flex flex-col md:flex-row justify-between items-center">
         <div className="mb-4 md:mb-0">
