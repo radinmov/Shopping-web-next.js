@@ -7,8 +7,7 @@ import Swal from 'sweetalert2';
 export default function Login() {
   const [phone, SetPhone] = useState<string | null>(null);
   const [Code, SetCode] = useState<string | null>(null);
-  const [err, setError] = useState<string | null>(null);
-
+  
   function handleLogin(event: FormEvent<HTMLFormElement>) {
     event.preventDefault(); // Prevent form submission and page refresh
     console.log("hwlo");
@@ -36,7 +35,7 @@ export default function Login() {
         verify_code: Code,
       });
 
-      fetch("http://192.168.220.12:5000/login", {
+  fetch("http://192.168.220.12:5000/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -45,8 +44,8 @@ export default function Login() {
       })
         .then((response) => response.json())
         .then((result) => {
-          console.log("rea");
-          setError(result);
+          console.log(result);
+          
           let token = result.token;
           if (token) {
             console.log("ok");
@@ -56,7 +55,7 @@ export default function Login() {
             Swal.fire({
               icon: "error",
               title: "Oops...",
-              text: `${err}`,
+              text: `${result.message}`,
               footer: '<a href="#">Why do I have this issue?</a>'
             });
           }
