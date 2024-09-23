@@ -35,31 +35,45 @@ export default function Login() {
         verify_code: Code,
       });
 
-  fetch("http://192.168.220.12:5000/login", {
+      fetch("http://192.168.220.14:5005/user/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: data,
       })
-        .then((response) => response.json())
-        .then((result) => {
-          console.log(result);
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(result);
+        
+        let token = result.token;
+        if (token) {
+          console.log("ok");
+          alert("Login success");
+
+          localStorage.setItem("Token", token);
+          localStorage.setItem("Phone_Number", result.phone_number);
+          localStorage.setItem("Telegram_ID", result.telegram_id);
+          localStorage.setItem("Balance", result.balance);
           
-          let token = result.token;
-          if (token) {
-            console.log("ok");
-            alert("Login success");
-            localStorage.setItem("Token", result.token);
-          } else {
-            Swal.fire({
-              icon: "error",
-              title: "Oops...",
-              text: `${result.message}`,
-              footer: '<a href="#">Why do I have this issue?</a>'
-            });
-          }
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: `${result.message}`,
+            footer: '<a href="#">Why do I have this issue?</a>'
+          });
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong!",
+          footer: '<a href="#">Try again</a>'
         });
+      });
     }
   }
 
