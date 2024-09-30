@@ -35,7 +35,7 @@ export default function Login() {
         verify_code: Code,
       });
 
-      fetch("http://192.168.220.14:5005/user/login", {
+      fetch("http://192.168.220.19:3002/user/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -52,6 +52,7 @@ export default function Login() {
           alert("Login success");
 
           localStorage.setItem("Token", token);
+          localStorage.setItem("id", result.id);
           localStorage.setItem("Phone_Number", result.phone_number);
           localStorage.setItem("Telegram_ID", result.telegram_id);
           localStorage.setItem("Balance", result.balance);
