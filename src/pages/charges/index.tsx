@@ -8,7 +8,7 @@ const Charges = () => {
     const userId = localStorage.getItem("user_id");
 
     if (userId) {
-      fetch(`http://192.168.220.14:5005/user/charges/${userId}`, {
+      fetch(`http://192.248.242.69:5005/user/charges/${userId}`, {
         method: "GET",
       })
         .then((response) => response.json())

@@ -1,57 +1,96 @@
 import React, { useEffect, useState } from 'react';
+import Image from 'next/image'; 
+import "./Style.css";
+import Header from '../../components/header/page';
+import Footer from '../../components/footer/page';
 
 const Profile = () => {
   const [userData, setUserData] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    console.log("welcome");
+    console.log("Welcome");
 
     // Get the user id and token from localStorage
     const userId = localStorage.getItem('id');
     const token = localStorage.getItem('Token');
 
-    // Check if user id and token exist
     if (userId && token) {
-      // POST request to fetch user data with token
-      fetch(`http://192.168.220.19:3002/user/user_info/${userId}`, {
+      // GET request to fetch user data with token
+      fetch(`http://195.248.242.69:5005/user/user_info/${userId}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}` // Sending token in the Authorization header
+          'Authorization': `Bearer ${token}`, 
         },
       })
         .then(response => {
-          
           if (!response.ok) {
             throw new Error('Network response was not ok');
           }
           return response.json();
         })
-        .then(data =>{ setUserData(data)
-        console.log(data);}
-        
-      )
+        .then(data => {
+          setUserData(data); // Storing user data
+          console.log(data);  // Debugging: log the fetched data
+        })
         .catch(error => setError(error.message));
     } else {
-      // setError('No user ID or Token found in localStorage');
+      setError('No user ID or Token found in localStorage');
     }
   }, []);
 
   return (
-    <div>
-      {error && <p>Error: {error}</p>}
-      {userData ? (
-        <div>
-          <h1>{userData.name}</h1>
-          <p>Email: {userData.email}</p>
-          {/* You can add more user info here */}
+    <>
+      <Header /> 
+      <div className="min-h-screen bg-gray-100 p-6">
+        <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
+          <div className="sm:flex sm:items-center px-6 py-4">
+            <div className="sm:w-1/4 text-center mb-4 sm:mb-0">
+              <h3 className="text-lg font-bold text-gray-700">Welcome to profile</h3>
+            </div>
+            <div className="sm:w-3/4 sm:ml-6">
+              <form className="grid grid-cols-1 gap-6">
+
+                {/* Conditional rendering to ensure userData exists before accessing its properties */}
+                <div>
+                  <label className="block text-gray-600">ID</label>
+                  <div className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    {userData ? userData.id : 'Loading...'}
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-gray-600">Balance</label>
+                  <div className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    {userData ? userData.balance : 'Loading...'}
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-gray-600">Phone Number</label>
+                  <div className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    {userData ? "+" +userData.phone_number : 'Loading...'}
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-gray-600">Telegram ID</label>
+                  <div className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    {userData ? userData.telegram_id : 'Loading...'}
+                  </div>
+                </div>
+
+              </form>
+
+              {error && <p className="text-red-500">{error}</p>}
+            </div>
+          </div>
         </div>
-      ) : (
-        <p>Loading user data...</p>
-      )}
-    </div>
+      </div>
+      <Footer />
+    </>
   );
-};
+}
 
 export default Profile;

@@ -35,7 +35,7 @@ export default function Login() {
         verify_code: Code,
       });
 
-      fetch("http://192.168.220.19:3002/user/login", {
+      fetch("http://195.248.242.69:5005/user/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

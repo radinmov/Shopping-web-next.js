@@ -5,7 +5,7 @@ const Home = () => {
   const [Data, SetData] = useState<any[]>([]); // Set type to an array
 
   useEffect(() => {
-    fetch("http://192.168.220.19:3001/user/products", {
+    fetch("http://195.248.242.69:5005/user/products", {
       method: "GET",
     })
       .then((response) => response.json())

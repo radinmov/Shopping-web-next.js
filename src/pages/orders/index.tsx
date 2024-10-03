@@ -8,7 +8,7 @@ const Orders = () => {
     const telegramId = localStorage.getItem("Telegram_ID");
 
     if (telegramId) {
-      fetch(`http://192.168.220.14:5005/user/orders/${telegramId}`, {
+      fetch(`http://195.248.242.69:5005/user/orders/${telegramId}`, {
         method: "GET",
       })
         .then((response) => response.json())
