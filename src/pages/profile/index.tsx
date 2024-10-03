@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import Image from 'next/image'; 
+import React, { useEffect, useState } from 'react'; 
 import "./Style.css";
 import Header from '../../components/header/page';
 import Footer from '../../components/footer/page';
@@ -10,13 +9,10 @@ const Profile = () => {
 
   useEffect(() => {
     console.log("Welcome");
-
-    // Get the user id and token from localStorage
     const userId = localStorage.getItem('id');
     const token = localStorage.getItem('Token');
 
     if (userId && token) {
-      // GET request to fetch user data with token
       fetch(`http://195.248.242.69:5005/user/user_info/${userId}`, {
         method: 'GET',
         headers: {
@@ -31,8 +27,8 @@ const Profile = () => {
           return response.json();
         })
         .then(data => {
-          setUserData(data); // Storing user data
-          console.log(data);  // Debugging: log the fetched data
+          setUserData(data);
+          console.log(data); 
         })
         .catch(error => setError(error.message));
     } else {
@@ -47,12 +43,12 @@ const Profile = () => {
         <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
           <div className="sm:flex sm:items-center px-6 py-4">
             <div className="sm:w-1/4 text-center mb-4 sm:mb-0">
-              <h3 className="text-lg font-bold text-gray-700">Welcome to profile</h3>
+              <h3 className="text-lg font-bold text-gray-700">Welcome to your profile </h3>
             </div>
             <div className="sm:w-3/4 sm:ml-6">
               <form className="grid grid-cols-1 gap-6">
 
-                {/* Conditional rendering to ensure userData exists before accessing its properties */}
+               
                 <div>
                   <label className="block text-gray-600">ID</label>
                   <div className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">

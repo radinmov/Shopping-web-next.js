@@ -9,65 +9,59 @@ const Footer: React.FC = () => {
         
         <DropdownFooter title="Support">
           <address className="not-italic mb-4">
-            111 Bijoy sarani, Dhaka, <br />
-            <Link href="/contact">
+            TBZ,IRAN <br />
+            <Link href="/">
               <div className="hover:underline">Contact Us</div>
             </Link>
           </address>
-          <p>+88015-88888-9999</p>
-          <p><a href="mailto:exclusive@gmail.com" className="hover:underline">exclusive@gmail.com</a></p>
+          {/* <p><a href="mailto:exclusive@gmail.com" className="hover:underline">exclusive@gmail.com</a></p> */}
         </DropdownFooter>
         
         <DropdownFooter title="Account">
           <ul>
             <li className="mb-2">
-              <Link href="/account">
+              <Link href="/profile">
                 <div className="hover:underline">My Account</div>
               </Link>
             </li>
             <li className="mb-2">
-              <Link href="/login">
-                <div className="hover:underline">Login / Register</div>
+              <Link href="auth/login">
+                <div className="hover:underline">Login</div>
               </Link>
             </li>
             <li className="mb-2">
-              <Link href="/cart">
-                <div className="hover:underline">Cart</div>
-              </Link>
-            </li>
-            <li className="mb-2">
-              <Link href="/wishlist">
-                <div className="hover:underline">Wishlist</div>
-              </Link>
-            </li>
-            <li className="mb-2">
-              <Link href="/shop">
-                <div className="hover:underline">Shop</div>
+              <Link href="auth/login">
+                <div className="hover:underline">Register</div>
               </Link>
             </li>
           </ul>
         </DropdownFooter>
 
-        <DropdownFooter title="Quick Link">
+        <DropdownFooter title=" Linker">
           <ul>
             <li className="mb-2">
-              <Link href="/privacy-policy">
-                <div className="hover:underline">Privacy Policy</div>
+              <Link href="/auth/login">
+                <div className="hover:underline">Login</div>
               </Link>
             </li>
             <li className="mb-2">
-              <Link href="/terms">
-                <div className="hover:underline">Terms Of Use</div>
+              <Link href="/auth/login">
+                <div className="hover:underline">Register</div>
               </Link>
             </li>
             <li className="mb-2">
-              <Link href="/faq">
-                <div className="hover:underline">FAQ</div>
+              <Link href="/profile">
+                <div className="hover:underline">Profile</div>
               </Link>
             </li>
             <li className="mb-2">
-              <Link href="/contact">
-                <div className="hover:underline">Contact</div>
+              <Link href="/orders">
+                <div className="hover:underline">orders</div>
+              </Link>
+            </li>
+            <li className="mb-2">
+              <Link href="/charges">
+                <div className="hover:underline">Charges</div>
               </Link>
             </li>
           </ul>
@@ -76,7 +70,7 @@ const Footer: React.FC = () => {
       </div>
       <div className="container mx-auto mt-8 flex flex-col md:flex-row justify-between items-center">
         <div className="mb-4 md:mb-0">
-          <p>&copy; Copyright Rimel 2022. All rights reserved</p>
+          <p>&copy; Copyright ALBORZ , IRAN , TBZ  2024. All rights reserved</p>
         </div>
         <div className="flex space-x-4">
           <a href="#"><img src="data:image/png;base64,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" alt="QR Code" className="h-10" /></a>

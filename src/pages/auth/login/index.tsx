@@ -9,8 +9,7 @@ export default function Login() {
   const [Code, SetCode] = useState<string | null>(null);
   
   function handleLogin(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault(); // Prevent form submission and page refresh
-    console.log("hwlo");
+    event.preventDefault();
 
     const auth_inputs = [
       { name: "phone", value: phone },
@@ -23,7 +22,7 @@ export default function Login() {
           icon: "error",
           title: "Oops...",
           text: "You must enter something...",
-          footer: '<a href="#">Why do I have this issue?</a>'
+
         });
         return;
       }
@@ -48,9 +47,6 @@ export default function Login() {
         
         let token = result.token;
         if (token) {
-          console.log("ok");
-          alert("Login success");
-
           localStorage.setItem("Token", token);
           localStorage.setItem("id", result.id);
           localStorage.setItem("Phone_Number", result.phone_number);
@@ -62,7 +58,6 @@ export default function Login() {
             icon: "error",
             title: "Oops...",
             text: `${result.message}`,
-            footer: '<a href="#">Why do I have this issue?</a>'
           });
         }
       })
@@ -72,7 +67,6 @@ export default function Login() {
           icon: "error",
           title: "Oops...",
           text: "Something went wrong!",
-          footer: '<a href="#">Try again</a>'
         });
       });
     }
@@ -91,10 +85,9 @@ export default function Login() {
             <h2 className="text-2xl font-bold text-gray-700">Login in your Account</h2>
             <div className="mt-4 flex items-center justify-between">
               <span className="border-b w-1/5 lg:w-1/4"></span>
-              <span className="text-xs text-center text-gray-500 uppercase">Or</span>
+              <span className="text-xs text-center text-gray-500 uppercase">here</span>
               <span className="border-b w-1/5 lg:w-1/4"></span>
-            </div>
-
+            </div>  
             <form className="mt-8 space-y-4" onSubmit={handleLogin}>
               <div>
                 <label className="block text-gray-700">Your number</label>
@@ -104,7 +97,6 @@ export default function Login() {
                   placeholder="Your phone number"
                   className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
-                <p>{phone}</p>
               </div>
               <div>
                 <label className="block text-gray-700">Your verify code</label>

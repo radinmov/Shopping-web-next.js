@@ -15,7 +15,6 @@ export default function Header() {
       <div className="flex justify-between items-center bg-black text-white px-5 py-2 text-sm">
         <div>
           Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%!
-          <a href="#" className="font-bold ml-2 underline">Shop Now</a>
         </div>
       </div>
 
@@ -68,27 +67,22 @@ export default function Header() {
           <Link href="/" passHref>
             <div className="text-black font-semibold underline">Home</div>
           </Link>
-          <Link href="/contact" passHref>
-            <div className="text-gray-600 hover:text-black">Contact</div>
-          </Link>
-          <Link href="/about" passHref>
-            <div className="text-gray-600 hover:text-black">About</div>
-          </Link>
           <Link href="/auth/login" passHref>
-            <div className="text-gray-600 hover:text-black">Account</div>
+            <div className="text-gray-600 hover:text-black">Login</div>
+          </Link>
+          <Link href="/auth/register" passHref>
+            <div className="text-gray-600 hover:text-black">Register</div>
+          </Link>
+          <Link href="/profile" passHref>
+            <div className="text-gray-600 hover:text-black">Profile</div>
+          </Link>
+          <Link href="/orders" passHref>
+            <div className="text-gray-600 hover:text-black">Orders</div>
+          </Link>
+          <Link href="/charges" passHref>
+            <div className="text-gray-600 hover:text-black">Charges</div>
           </Link>
         </nav>
-
-        
-        <div className="hidden md:flex items-center space-x-4">
-          <div className="relative">
-            <input
-              type="text"
-              placeholder="What are you looking for?"
-              className="border rounded-full px-4 py-2 text-gray-600 focus:outline-none focus:border-black w-64"
-            />
-          </div>
-        </div>
       </div>
 
       
@@ -97,22 +91,28 @@ export default function Header() {
           <Link href="/" passHref>
             <div className="block py-2 text-black font-semibold underline">Home</div>
           </Link>
-          <Link href="/contact" passHref>
-            <div className="block py-2 text-gray-600 hover:text-black">Contact</div>
-          </Link>
-          <Link href="/about" passHref>
-            <div className="block py-2 text-gray-600 hover:text-black">About</div>
+          <Link href="/auth/login" passHref>
+            <div className="block py-2 text-gray-600 hover:text-black">Login</div>
           </Link>
           <Link href="/auth/login" passHref>
-            <div className="block py-2 text-gray-600 hover:text-black">Account</div>
+            <div className="block py-2 text-gray-600 hover:text-black">Register</div>
           </Link>
-          <div className="relative">
+          <Link href="/orders" passHref>
+            <div className="block py-2 text-gray-600 hover:text-black">Orders</div>
+          </Link>
+          <Link href="/charges" passHref>
+            <div className="block py-2 text-gray-600 hover:text-black">Charges</div>
+          </Link>
+          <Link href="/profile" passHref>
+            <div className="block py-2 text-gray-600 hover:text-black">Profile</div>
+          </Link>
+          {/* <div className="relative">
             <input
               type="text"
               placeholder="What are you looking for?"
               className="border rounded-full px-4 py-2 text-gray-600 focus:outline-none focus:border-black w-64"
             />
-          </div>
+          </div> */}
         </div>
       )}
     </div>
