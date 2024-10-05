@@ -5,7 +5,7 @@ const Home = () => {
   const [Data, SetData] = useState<any[]>([]); // Set type to an array
 
   useEffect(() => {
-    fetch("http://195.248.242.69:5005/user/products", {
+    fetch("http://195.248.242.69:5006/user/products", {
       method: "GET",
     })
       .then((response) => response.json())
@@ -16,7 +16,7 @@ const Home = () => {
       .catch((error) => {
         console.error("Error fetching products:", error);
       });
-  }, []); // useEffect with an empty dependency array to run once on component mount
+  }, []); 
 
   return (
     <div className="p-8">

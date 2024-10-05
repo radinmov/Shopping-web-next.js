@@ -22,7 +22,6 @@ export default function Login() {
           icon: "error",
           title: "Oops...",
           text: "You must enter something...",
-
         });
         return;
       }
@@ -34,7 +33,7 @@ export default function Login() {
         verify_code: Code,
       });
 
-      fetch("http://195.248.242.69:5005/user/login", {
+      fetch("http://195.248.242.69:5006/user/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -47,11 +46,14 @@ export default function Login() {
         
         let token = result.token;
         if (token) {
+          if (token.startsWith("b'") || token.startsWith('b"')) {
+            token = token.slice(2, -1); 
+          }
+
           localStorage.setItem("Token", token);
           localStorage.setItem("id", result.id);
           localStorage.setItem("Phone_Number", result.phone_number);
           localStorage.setItem("Telegram_ID", result.telegram_id);
-          localStorage.setItem("Balance", result.balance);
           
         } else {
           Swal.fire({
@@ -82,7 +84,7 @@ export default function Login() {
       <div className="min-h-screen flex items-center justify-center bg-gray-100">
         <div className="flex flex-col md:flex-row bg-white shadow-lg rounded-lg overflow-hidden">
           <div className="p-8 bg-white flex flex-col justify-center">
-            <h2 className="text-2xl font-bold text-gray-700">Login in your Account</h2>
+            <h2 className="text-2xl font-bold text-gray-700">Login to your Account</h2>
             <div className="mt-4 flex items-center justify-between">
               <span className="border-b w-1/5 lg:w-1/4"></span>
               <span className="text-xs text-center text-gray-500 uppercase">here</span>
