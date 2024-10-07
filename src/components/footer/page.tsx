@@ -45,7 +45,7 @@ const Footer: React.FC = () => {
               </Link>
             </li>
             <li className="mb-2">
-              <Link href="/auth/login">
+              <Link href="/auth/register">
                 <div className="hover:underline">Register</div>
               </Link>
             </li>
