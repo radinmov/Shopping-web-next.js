@@ -1,5 +1,5 @@
 import { useState, useEffect, ChangeEvent, FormEvent } from 'react';
-import "./Style.css"
+import "./Style.css";
 import Header from '../../../components/header/page';
 import Footer from '../../../components/footer/page';
 import Swal from 'sweetalert2';
@@ -15,7 +15,7 @@ export default function Login() {
       { name: "phone", value: phone },
       { name: "Code", value: Code }
     ];
-
+    
     for (const field of auth_inputs) {
       if (!field.value || field.value.length === 0) {
         Swal.fire({
@@ -41,21 +41,26 @@ export default function Login() {
         body: data,
       })
       .then((response) => response.json())
-      .then((result) => {
-        console.log(result);
-        
+      .then((result) => {        
         let token = result.token;
+
         if (token) {
           if (token.startsWith("b'") || token.startsWith('b"')) {
             token = token.slice(2, -1); 
           }
-
+      
           localStorage.setItem("Token", token);
           localStorage.setItem("id", result.id);
           localStorage.setItem("Phone_Number", result.phone_number);
           localStorage.setItem("Telegram_ID", result.telegram_id);
-          
+          Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: 'Login successful!',
+          });
+      
         } else {
+          console.log("No token returned");  
           Swal.fire({
             icon: "error",
             title: "Oops...",
@@ -64,12 +69,7 @@ export default function Login() {
         }
       })
       .catch((error) => {
-        console.error('Error:', error);
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Something went wrong!",
-        });
+
       });
     }
   }
