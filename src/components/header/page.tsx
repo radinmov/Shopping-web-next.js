@@ -94,7 +94,7 @@ export default function Header() {
           <Link href="/auth/login" passHref>
             <div className="block py-2 text-gray-600 hover:text-black">Login</div>
           </Link>
-          <Link href="/auth/login" passHref>
+          <Link href="/auth/register" passHref>
             <div className="block py-2 text-gray-600 hover:text-black">Register</div>
           </Link>
           <Link href="/orders" passHref>
