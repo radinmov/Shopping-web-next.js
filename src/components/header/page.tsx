@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faLock, faCreditCard, faShoppingCart, faHome } from '@fortawesome/free-solid-svg-icons';
 
@@ -14,23 +16,30 @@ export default function Header() {
 
   return (
     <div>
-
+      {/* Top Banner */}
       <div className="flex justify-between items-center bg-black text-white px-5 py-2 text-sm">
         <div>
           Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%!
         </div>
       </div>
 
-
-      <div className="flex justify-between items-center bg-white px-10 py-4">
+      {/* Header */}
+      <div className="flex justify-between items-center bg-white px-10 py-4 shadow-md">
         <div className="text-xl font-bold">
           <Link href="/">
-            <div>Exclusive</div>
+            <Image
+              src="/vimba.jpeg"
+              alt="Logo"
+              width={100} 
+              height={50} 
+              className="rounded-full"
+            />
           </Link>
         </div>
+
+        {/* Hamburger Menu (Mobile) */}
         <div className="md:hidden">
           <button onClick={toggleMenu} className="focus:outline-none">
-
             {menuOpen ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -65,51 +74,62 @@ export default function Header() {
           </button>
         </div>
 
-
+        {/* Main Navigation (Desktop) */}
         <nav className="hidden md:flex space-x-8 items-center">
           <Link href="/" passHref>
-            <FontAwesomeIcon icon={faHome} />
+            <div className="flex items-center space-x-2">
+              <FontAwesomeIcon icon={faHome} />
+              <p>Home</p>
+            </div>
           </Link>
-          {/* <Link href="/auth/login" passHref>
-            <div className="text-gray-600 hover:text-black">Login</div>
-          </Link> */}
           <Link href="/auth/register" passHref>
-            <FontAwesomeIcon icon={faUser} />
+            <div className="flex items-center space-x-2">
+              <FontAwesomeIcon icon={faUser} />
+              <p>Profile</p>
+            </div>
           </Link>
           <Link href="/orders" passHref>
-            <FontAwesomeIcon icon={faShoppingCart} />
+            <div className="flex items-center space-x-2">
+              <FontAwesomeIcon icon={faShoppingCart} />
+              <p>Orders</p>
+            </div>
           </Link>
           <Link href="/charges" passHref>
-            <FontAwesomeIcon icon={faCreditCard} />
+            <div className="flex items-center space-x-2">
+              <FontAwesomeIcon icon={faCreditCard} />
+              <p>Charges</p>
+            </div>
           </Link>
         </nav>
       </div>
 
-
+      {/* Mobile Menu (Shown when toggled) */}
       {menuOpen && (
         <div className="md:hidden bg-white px-10 py-4">
           <Link href="/" passHref>
-            <FontAwesomeIcon icon={faHome} />
+            <div className="flex items-center space-x-2 py-2">
+              <FontAwesomeIcon icon={faHome} />
+              <p>Home</p>
+            </div>
           </Link>
           <Link href="/auth/register" passHref>
-            <FontAwesomeIcon icon={faUser} />
+            <div className="flex items-center space-x-2 py-2">
+              <FontAwesomeIcon icon={faUser} />
+              <p>Profile</p>
+            </div>
           </Link>
           <Link href="/orders" passHref>
-            <FontAwesomeIcon icon={faShoppingCart} />
+            <div className="flex items-center space-x-2 py-2">
+              <FontAwesomeIcon icon={faShoppingCart} />
+              <p>Orders</p>
+            </div>
           </Link>
           <Link href="/charges" passHref>
-            <FontAwesomeIcon icon={faCreditCard} />
+            <div className="flex items-center space-x-2 py-2">
+              <FontAwesomeIcon icon={faCreditCard} />
+              <p>Charges</p>
+            </div>
           </Link>
-          <Link href="/auth/register" passHref>
-            <div className="block py-2 text-gray-600 hover:text-black">Profile</div>
-          </Link>
-          {/* <div className="relative">
-            <input
-              type="text"
-              placeholder="What are you looking for?"
-              className="border rounded-full px-4 py-2 text-gray-600 focus:outline-none focus:border-black w-64"
-            />
-          </div> */}
         </div>
       )}
     </div>
