@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser, faLock, faCreditCard, faShoppingCart, faHome } from '@fortawesome/free-solid-svg-icons';
+
 import './Style.css';
 
 export default function Header() {
@@ -11,7 +14,7 @@ export default function Header() {
 
   return (
     <div>
-      
+
       <div className="flex justify-between items-center bg-black text-white px-5 py-2 text-sm">
         <div>
           Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%!
@@ -62,48 +65,42 @@ export default function Header() {
           </button>
         </div>
 
-        
+
         <nav className="hidden md:flex space-x-8 items-center">
           <Link href="/" passHref>
-            <div className="text-black font-semibold underline">Home</div>
+            <FontAwesomeIcon icon={faHome} />
           </Link>
-          <Link href="/auth/login" passHref>
+          {/* <Link href="/auth/login" passHref>
             <div className="text-gray-600 hover:text-black">Login</div>
-          </Link>
+          </Link> */}
           <Link href="/auth/register" passHref>
-            <div className="text-gray-600 hover:text-black">Register</div>
-          </Link>
-          <Link href="/profile" passHref>
-            <div className="text-gray-600 hover:text-black">Profile</div>
+            <FontAwesomeIcon icon={faUser} />
           </Link>
           <Link href="/orders" passHref>
-            <div className="text-gray-600 hover:text-black">Orders</div>
+            <FontAwesomeIcon icon={faShoppingCart} />
           </Link>
           <Link href="/charges" passHref>
-            <div className="text-gray-600 hover:text-black">Charges</div>
+            <FontAwesomeIcon icon={faCreditCard} />
           </Link>
         </nav>
       </div>
 
-      
+
       {menuOpen && (
         <div className="md:hidden bg-white px-10 py-4">
           <Link href="/" passHref>
-            <div className="block py-2 text-black font-semibold underline">Home</div>
-          </Link>
-          <Link href="/auth/login" passHref>
-            <div className="block py-2 text-gray-600 hover:text-black">Login</div>
+            <FontAwesomeIcon icon={faHome} />
           </Link>
           <Link href="/auth/register" passHref>
-            <div className="block py-2 text-gray-600 hover:text-black">Register</div>
+            <FontAwesomeIcon icon={faUser} />
           </Link>
           <Link href="/orders" passHref>
-            <div className="block py-2 text-gray-600 hover:text-black">Orders</div>
+            <FontAwesomeIcon icon={faShoppingCart} />
           </Link>
           <Link href="/charges" passHref>
-            <div className="block py-2 text-gray-600 hover:text-black">Charges</div>
+            <FontAwesomeIcon icon={faCreditCard} />
           </Link>
-          <Link href="/profile" passHref>
+          <Link href="/auth/register" passHref>
             <div className="block py-2 text-gray-600 hover:text-black">Profile</div>
           </Link>
           {/* <div className="relative">
