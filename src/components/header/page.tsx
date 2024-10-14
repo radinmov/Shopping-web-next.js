@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-
+import Swal from 'sweetalert2';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faLock, faCreditCard, faShoppingCart, faHome } from '@fortawesome/free-solid-svg-icons';
-
 import './Style.css';
 
 export default function Header() {
@@ -12,6 +11,23 @@ export default function Header() {
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
+  };
+
+  // Check if the user is authenticated
+  const handleProtectedNavigation = (href) => {
+    const token = localStorage.getItem('Token');
+
+    if (token) {
+      // User is authenticated, allow navigation
+      window.location.href = href;
+    } else {
+      // User is not authenticated, show alert
+      Swal.fire({
+        icon: 'warning',
+        title: 'Unauthorized',
+        text: 'You must be logged in to access this page!',
+      });
+    }
   };
 
   return (
@@ -74,7 +90,6 @@ export default function Header() {
           </button>
         </div>
 
-        {/* Main Navigation (Desktop) */}
         <nav className="hidden md:flex space-x-8 items-center">
           <Link href="/" passHref>
             <div className="flex items-center space-x-2">
@@ -88,18 +103,18 @@ export default function Header() {
               <p>Profile</p>
             </div>
           </Link>
-          <Link href="/orders" passHref>
+          <button onClick={() => handleProtectedNavigation('/orders')}>
             <div className="flex items-center space-x-2">
               <FontAwesomeIcon icon={faShoppingCart} />
               <p>Orders</p>
             </div>
-          </Link>
-          <Link href="/charges" passHref>
+          </button>
+          <button onClick={() => handleProtectedNavigation('/charges')}>
             <div className="flex items-center space-x-2">
               <FontAwesomeIcon icon={faCreditCard} />
               <p>Charges</p>
             </div>
-          </Link>
+          </button>
         </nav>
       </div>
 
@@ -118,18 +133,18 @@ export default function Header() {
               <p>Profile</p>
             </div>
           </Link>
-          <Link href="/orders" passHref>
+          <button onClick={() => handleProtectedNavigation('/orders')}>
             <div className="flex items-center space-x-2 py-2">
               <FontAwesomeIcon icon={faShoppingCart} />
               <p>Orders</p>
             </div>
-          </Link>
-          <Link href="/charges" passHref>
+          </button>
+          <button onClick={() => handleProtectedNavigation('/charges')}>
             <div className="flex items-center space-x-2 py-2">
               <FontAwesomeIcon icon={faCreditCard} />
               <p>Charges</p>
             </div>
-          </Link>
+          </button>
         </div>
       )}
     </div>
