@@ -1,4 +1,5 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {};
-
-export default nextConfig;
+export default {
+  images: {
+    domains: ['img.freepik.com', '195.248.242.69'],
+  },
+};

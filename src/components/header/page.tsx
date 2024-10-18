@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Swal from 'sweetalert2';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faLock, faCreditCard, faShoppingCart, faHome } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faCreditCard, faShoppingCart, faHome } from '@fortawesome/free-solid-svg-icons';
 import './Style.css';
 
 export default function Header() {
@@ -13,15 +13,12 @@ export default function Header() {
     setMenuOpen(!menuOpen);
   };
 
-  // Check if the user is authenticated
   const handleProtectedNavigation = (href) => {
     const token = localStorage.getItem('Token');
 
     if (token) {
-      // User is authenticated, allow navigation
       window.location.href = href;
     } else {
-      // User is not authenticated, show alert
       Swal.fire({
         icon: 'warning',
         title: 'Unauthorized',
@@ -32,28 +29,28 @@ export default function Header() {
 
   return (
     <div>
-      {/* Top Banner */}
+      {/* Top Notification Bar */}
       <div className="flex justify-between items-center bg-black text-white px-5 py-2 text-sm">
         <div>
           Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%!
         </div>
       </div>
 
-      {/* Header */}
+      {/* Header Section */}
       <div className="flex justify-between items-center bg-white px-10 py-4 shadow-md">
         <div className="text-xl font-bold">
           <Link href="/">
             <Image
               src="/vimba.jpeg"
               alt="Logo"
-              width={100} 
-              height={50} 
+              width={100}
+              height={50}
               className="rounded-full"
             />
           </Link>
         </div>
 
-        {/* Hamburger Menu (Mobile) */}
+        {/* Hamburger Menu Toggle */}
         <div className="md:hidden">
           <button onClick={toggleMenu} className="focus:outline-none">
             {menuOpen ? (
@@ -90,6 +87,7 @@ export default function Header() {
           </button>
         </div>
 
+        {/* Desktop Navigation */}
         <nav className="hidden md:flex space-x-8 items-center">
           <Link href="/" passHref>
             <div className="flex items-center space-x-2">
@@ -118,29 +116,29 @@ export default function Header() {
         </nav>
       </div>
 
-      {/* Mobile Menu (Shown when toggled) */}
+      {/* Mobile Navigation */}
       {menuOpen && (
-        <div className="md:hidden bg-white px-10 py-4">
+        <div className="md:hidden bg-white px-5 py-4 space-y-4">
           <Link href="/" passHref>
-            <div className="flex items-center space-x-2 py-2">
+            <div className="flex items-center space-x-2 py-2 hover:bg-gray-100 rounded-md">
               <FontAwesomeIcon icon={faHome} />
               <p>Home</p>
             </div>
           </Link>
           <Link href="/auth/register" passHref>
-            <div className="flex items-center space-x-2 py-2">
+            <div className="flex items-center space-x-2 py-2 hover:bg-gray-100 rounded-md">
               <FontAwesomeIcon icon={faUser} />
               <p>Profile</p>
             </div>
           </Link>
-          <button onClick={() => handleProtectedNavigation('/orders')}>
-            <div className="flex items-center space-x-2 py-2">
+          <button onClick={() => handleProtectedNavigation('/orders')} className="w-full text-left">
+            <div className="flex items-center space-x-2 py-2 hover:bg-gray-100 rounded-md">
               <FontAwesomeIcon icon={faShoppingCart} />
               <p>Orders</p>
             </div>
           </button>
-          <button onClick={() => handleProtectedNavigation('/charges')}>
-            <div className="flex items-center space-x-2 py-2">
+          <button onClick={() => handleProtectedNavigation('/charges')} className="w-full text-left">
+            <div className="flex items-center space-x-2 py-2 hover:bg-gray-100 rounded-md">
               <FontAwesomeIcon icon={faCreditCard} />
               <p>Charges</p>
             </div>

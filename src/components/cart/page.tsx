@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 const Home = () => {
   const [Data, SetData] = useState<any[]>([]);
@@ -18,9 +19,8 @@ const Home = () => {
       });
   }, []);
 
-  // Prevent rendering until the component has mounted
   if (!isMounted) {
-    return null; // Or a loading state
+    return null; 
   }
 
   return (
@@ -29,20 +29,20 @@ const Home = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {Data.map((product) => (
           <div key={product.id} className="border rounded-lg shadow-md p-4 relative">
-            {/* <div className="relative w-full h-40">
+            <div className="relative w-full h-40">
               <Image
-                src={`http://195.248.242.69:5005/uploaded_file/${product.photo_path}`}
+                src={`http://195.248.242.69:5006/static/${product.photo_path}`}
                 alt={product.name}
                 layout="fill"
                 objectFit="cover"
                 className="rounded-md"
               />
-            </div> */}
+            </div>
             <h1 className="mt-4 text-lg font-semibold">{product.name}</h1>
             <p className="mt-2">{product.description}</p>
             <p className="text-red-500 text-sm">${product.price}</p>
 
-            <Link href={`/product/${product.id}`}>
+            <Link href={"/Product_detail"}>
               <div className="mt-4 w-full bg-black text-white py-2 rounded-md text-center">Details</div>
             </Link>
           </div>
