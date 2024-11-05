@@ -8,7 +8,7 @@ const Home = () => {
 
   useEffect(() => {
     setIsMounted(true);
-    fetch("http://195.248.242.69:5006/user/products")
+    fetch("http://188.245.175.0:8000/user/products")
       .then((response) => response.json())
       .then((result) => {
         console.log(result);
@@ -29,20 +29,20 @@ const Home = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {Data.map((product) => (
           <div key={product.id} className="border rounded-lg shadow-md p-4 relative">
-            <div className="relative w-full h-40">
+            {/* <div className="relative w-full h-40">
               <Image
-                src={`http://195.248.242.69:5006/static/${product.photo_path}`}
+                src={`http://188.245.175.0:8000/static/${product.photo_path}`}
                 alt={product.name}
                 layout="fill"
                 objectFit="cover"
                 className="rounded-md"
               />
-            </div>
+            </div> */}
             <h1 className="mt-4 text-lg font-semibold">{product.name}</h1>
             <p className="mt-2">{product.description}</p>
             <p className="text-red-500 text-sm">${product.price}</p>
 
-            <Link href={"/Product_detail"}>
+            <Link href={`/Product_detail/${product.id}`}>
               <div className="mt-4 w-full bg-black text-white py-2 rounded-md text-center">Details</div>
             </Link>
           </div>
