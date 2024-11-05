@@ -30,7 +30,6 @@ const ProductDetail = () => {
   const [comments, setComments] = useState<Comment[]>([]);
   const [newComment, setNewComment] = useState('');
   const [username, setUsername] = useState('');
-  
   const totalStars = 5;
   const [selectedRating, setSelectedRating] = useState<number | null>(null);
 
@@ -46,6 +45,16 @@ const ProductDetail = () => {
           console.error("Error fetching product details:", error);
           setLoading(false);
         });
+    }
+  }, [id]);
+
+  // Fetch comments for the product
+  useEffect(() => {
+    if (id) {
+      fetch(`http://188.245.175.0:8000/user/products/${id}/comments`)
+        .then((response) => response.json())
+        .then((data) => setComments(data))
+        .catch((error) => console.error("Error fetching comments:", error));
     }
   }, [id]);
 
@@ -77,9 +86,38 @@ const ProductDetail = () => {
 
   const handleCommentSubmit = () => {
     if (username && newComment) {
-      setComments([...comments, { id: comments.length + 1, name: username, message: newComment }]);
-      setNewComment('');
-      setUsername('');
+      const newCommentData = {
+        name: username,
+        message: newComment,
+      };
+      fetch(`http://188.245.175.0:8000/user/products/${id}/comments`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newCommentData),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          setComments([...comments, data]);  // Add the new comment to the list
+          setNewComment('');
+          setUsername('');
+          Swal.fire({
+            title: 'Comment Submitted',
+            text: 'Your comment has been added successfully!',
+            icon: 'success',
+            confirmButtonText: 'OK'
+          });
+        })
+        .catch((error) => {
+          console.error("Error submitting comment:", error);
+          Swal.fire({
+            title: 'Error',
+            text: 'Failed to submit comment. Please try again later.',
+            icon: 'error',
+            confirmButtonText: 'OK'
+          });
+        });
     } else {
       Swal.fire({
         title: 'Missing Information',
