@@ -35,7 +35,7 @@ const ProductDetail = () => {
 
   useEffect(() => {
     if (id) {
-      fetch(`http://188.245.175.0:8000/user/products/${id}`)
+      fetch(`http://188.245.175.0:8000/products/${id}`)
         .then((response) => response.json())
         .then((data) => {
           setProduct(data);
@@ -51,7 +51,7 @@ const ProductDetail = () => {
   // Fetch comments for the product
   useEffect(() => {
     if (id) {
-      fetch(`http://188.245.175.0:8000/user/products/${id}/comments`)
+      fetch(`http://188.245.175.0:8000/products/${id}/comments`)
         .then((response) => response.json())
         .then((data) => setComments(data))
         .catch((error) => console.error("Error fetching comments:", error));
@@ -90,7 +90,7 @@ const ProductDetail = () => {
         name: username,
         message: newComment,
       };
-      fetch(`http://188.245.175.0:8000/user/products/${id}/comments`, {
+      fetch(`http://188.245.175.0:8000/products/${id}/comments`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
