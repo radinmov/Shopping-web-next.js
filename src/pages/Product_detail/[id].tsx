@@ -35,7 +35,7 @@ const ProductDetail = () => {
 
   useEffect(() => {
     if (id) {
-      fetch(`http://188.245.175.0:8000/products/${id}`)
+      fetch(`http://188.245.175.0:8000/products/${id}/comments`)
         .then((response) => response.json())
         .then((data) => {
           setProduct(data);
@@ -48,7 +48,6 @@ const ProductDetail = () => {
     }
   }, [id]);
 
-  // Fetch comments for the product
   useEffect(() => {
     if (id) {
       fetch(`http://188.245.175.0:8000/products/${id}/comments`)
@@ -99,7 +98,8 @@ const ProductDetail = () => {
       })
         .then((response) => response.json())
         .then((data) => {
-          setComments([...comments, data]);  // Add the new comment to the list
+          console.log(data);
+          setComments([...comments, data]);
           setNewComment('');
           setUsername('');
           Swal.fire({
@@ -143,13 +143,13 @@ const ProductDetail = () => {
         <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-center bg-white p-8 rounded-lg shadow-md">
           <div className="flex flex-col items-center w-full lg:w-1/2">
             <div className="relative w-full h-[500px] bg-gray-200 rounded-lg overflow-hidden">
-              <Image
+              {/* <Image
                 src={product.photo_path}
                 alt={product.name}
                 layout="fill"
                 objectFit="cover"
                 className="rounded-lg"
-              />
+              /> */}
             </div>
           </div>
 
@@ -157,7 +157,7 @@ const ProductDetail = () => {
             <h1 className="text-4xl font-bold mb-4">{product.name}</h1>
             <p className="text-gray-600 text-lg mb-6">{product.description}</p>
             <div className="mb-6">
-              <p className="text-2xl text-red-600 font-semibold">${product.price.toFixed(2)}</p>
+              {/* <p className="text-2xl text-red-600 font-semibold">${product.price.toFixed(2)}</p> */}
             </div>
 
             {/* Rating Section */}
