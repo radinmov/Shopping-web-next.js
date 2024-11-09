@@ -1,11 +1,18 @@
-import React, { useEffect, useState } from 'react'; 
+import React, { useEffect, useState } from 'react';
 import "./Style.css";
 import Header from '../../components/header/page';
 import Footer from '../../components/footer/page';
 
+interface UserData {
+  id: number;
+  balance: number;
+  phone_number: string;
+  telegram_id: string;
+}
+
 const Profile = () => {
-  const [userData, setUserData] = useState(null);
-  const [error, setError] = useState(null);
+  const [userData, setUserData] = useState<UserData | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     console.log("Welcome");
@@ -47,8 +54,6 @@ const Profile = () => {
             </div>
             <div className="sm:w-3/4 sm:ml-6">
               <form className="grid grid-cols-1 gap-6">
-
-               
                 <div>
                   <label className="block text-gray-600">ID</label>
                   <div className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
@@ -59,14 +64,14 @@ const Profile = () => {
                 <div>
                   <label className="block text-gray-600">Balance</label>
                   <div className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    {userData ? userData.balance  + "$": 'Loading...'}
+                    {userData ? `${userData.balance}$` : 'Loading...'}
                   </div>
                 </div>
 
                 <div>
                   <label className="block text-gray-600">Phone Number</label>
                   <div className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    {userData ? "+" +userData.phone_number : 'Loading...'}
+                    {userData ? `+${userData.phone_number}` : 'Loading...'}
                   </div>
                 </div>
 
@@ -76,7 +81,6 @@ const Profile = () => {
                     {userData ? userData.telegram_id : 'Loading...'}
                   </div>
                 </div>
-
               </form>
 
               {error && <p className="text-red-500">{error}</p>}
