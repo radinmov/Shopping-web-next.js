@@ -1,5 +1,5 @@
 export default {
   images: {
-    domains: ['img.freepik.com', '195.248.242.69'],
+    domains: ['img.freepik.com' , '188.245.175.0'],
   },
 };

@@ -13,7 +13,7 @@ const Profile = () => {
     const token = localStorage.getItem('Token');
 
     if (userId && token) {
-      fetch(`http://195.248.242.69:5005/user/user_info/${userId}`, {
+      fetch(`http://188.245.175.0:8000/user/user_info/${userId}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -59,7 +59,7 @@ const Profile = () => {
                 <div>
                   <label className="block text-gray-600">Balance</label>
                   <div className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    {userData ? userData.balance : 'Loading...'}
+                    {userData ? userData.balance  + "$": 'Loading...'}
                   </div>
                 </div>
 

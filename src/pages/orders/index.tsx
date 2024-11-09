@@ -34,7 +34,7 @@ const Orders = () => {
       return;
     }
 
-    fetch(`http://195.248.242.69:5006/user/orders/${telegramId}`, {
+    fetch(`http://188.245.175.0:8000/user/orders/${telegramId}`, {
       method: "GET",
       headers: {
         "Authorization": `Bearer ${token}`,

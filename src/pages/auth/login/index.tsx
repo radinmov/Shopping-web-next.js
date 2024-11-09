@@ -3,8 +3,10 @@ import "./Style.css";
 import Header from '../../../components/header/page';
 import Footer from '../../../components/footer/page';
 import Swal from 'sweetalert2';
+import { useRouter } from 'next/router';
 
 export default function Login() {
+  const router = useRouter();
   const [phone, SetPhone] = useState<string | null>(null);
   const [Code, SetCode] = useState<string | null>(null);
   
@@ -58,7 +60,7 @@ export default function Login() {
             title: 'Success!',
             text: 'Login successful!',
           });
-      
+          router.push('/')
         } else {
           console.log("No token returned");  
           Swal.fire({

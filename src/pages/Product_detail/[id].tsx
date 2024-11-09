@@ -6,7 +6,6 @@ import Header from "../../components/header/page";
 import Footer from "../../components/footer/page";
 import { FaStar } from 'react-icons/fa';
 import Swal from 'sweetalert2';
-import Link from "next/link";
 
 interface Product {
   id: string;
@@ -86,8 +85,8 @@ const ProductDetail = () => {
   const handleCommentSubmit = () => {
     if (username && newComment) {
       const newCommentData = {
-        name: username,
-        message: newComment,
+        "user_name": username,
+        'content': newComment,
       };
       fetch(`http://188.245.175.0:8000/products/${id}/comments`, {
         method: 'POST',
@@ -206,11 +205,12 @@ const ProductDetail = () => {
                 </button>
               </div>
               <div className="mt-4">
+                <h1 className="font-bold">You can also see users Comments</h1>
                 {comments.length > 0 ? (
                   comments.map((comment) => (
                     <div key={comment.id} className="bg-white shadow-md rounded-lg p-4 mb-4">
-                      <p className="text-lg font-semibold mb-2">{comment.name}</p>
-                      <p className="text-gray-700">{comment.message}</p>
+                      <p className="text-lg font-semibold mb-2">{comment.user_name}</p>
+                      <p className="text-gray-700">{comment.content}</p>
                     </div>
                   ))
                 ) : (

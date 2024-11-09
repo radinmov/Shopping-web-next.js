@@ -29,7 +29,7 @@ const Home = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {Data.map((product) => (
           <div key={product.id} className="border rounded-lg shadow-md p-4 relative">
-            {/* <div className="relative w-full h-40">
+            <div className="relative w-full h-40">
               <Image
                 src={`http://188.245.175.0:8000/static/${product.photo_path}`}
                 alt={product.name}
@@ -37,7 +37,7 @@ const Home = () => {
                 objectFit="cover"
                 className="rounded-md"
               />
-            </div> */}
+            </div>
             <h1 className="mt-4 text-lg font-semibold">{product.name}</h1>
             <p className="mt-2">{product.description}</p>
             <p className="text-red-500 text-sm">${product.price}</p>
