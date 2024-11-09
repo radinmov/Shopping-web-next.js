@@ -17,8 +17,8 @@ interface Product {
 
 interface Comment {
   id: number;
-  name: string;
-  message: string;
+  user_name: string;  
+  content: string;     
 }
 
 const ProductDetail = () => {
