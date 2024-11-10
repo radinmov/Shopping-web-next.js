@@ -95,12 +95,12 @@ export default function Header() {
               <p>Home</p>
             </div>
           </Link>
-          {/* <Link href="/auth/register" passHref>
+          <Link href="/auth/register" passHref>
             <div className="flex items-center space-x-2">
               <FontAwesomeIcon icon={faUser} />
               <p>Profile</p>
             </div>
-          </Link> */}
+          </Link>
           <button onClick={() => handleProtectedNavigation('/orders')}>
             <div className="flex items-center space-x-2">
               <FontAwesomeIcon icon={faShoppingCart} />
