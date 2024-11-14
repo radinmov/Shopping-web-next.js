@@ -5,6 +5,7 @@ import './Style.css';
 import Header from "../../components/header/page";
 import Footer from "../../components/footer/page";
 import { FaStar } from 'react-icons/fa';
+import Swal from "sweetalert2"; // Import SweetAlert2
 
 interface Product {
   id: string;
@@ -31,6 +32,8 @@ const ProductDetail = () => {
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
   const [comments, setComments] = useState<Comment[]>([]);
+  const [userName, setUserName] = useState<string>('');
+  const [commentContent, setCommentContent] = useState<string>('');
 
   const imageBaseUrl = "http://188.245.175.0:8000"; 
 
@@ -41,6 +44,8 @@ const ProductDetail = () => {
         .then((data) => {
           setProduct(data);
           setLoading(false);
+          console.log(data);
+          
         })
         .catch((error) => {
           console.error("Error fetching product details:", error);
@@ -49,18 +54,74 @@ const ProductDetail = () => {
     }
   }, [id]);
 
-  // useEffect(() => {
-  //   if (id) {
-  //     fetch(`http://188.245.175.0:8000/product/${id}/comments`)
-  //       .then((response) => response.json())
-  //       .then((data) => setComments(data))
-  //       .catch((error) => console.error("Error fetching comments:", error));
-  //   }
-  // }, [id]);
+  useEffect(() => {
+    if (id) {
+      fetch(`http://188.245.175.0:8000/products/${id}/comments`)
+        .then((response) => response.json())
+        .then((data) => setComments(data))
+        .catch((error) => console.error("Error fetching comments:", error));
+    }
+  }, [id]);
 
   useEffect(() => {
     document.title = 'Product Details';
   }, []);
+
+  const handlePostComment = async () => {
+    if (!userName || !commentContent) {
+      // Show alert if inputs are empty
+      Swal.fire({
+        icon: 'warning',
+        title: 'Oops...',
+        text: 'Both fields are required!',
+      });
+      return;
+    }
+
+    const newComment = {
+      user_name: userName,
+      content: commentContent,
+    };
+
+    try {
+      const response = await fetch(`http://188.245.175.0:8000/products/${id}/comments`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newComment),
+      });
+
+      if (response.ok) {
+        const comment = await response.json();
+        setComments((prevComments) => [...prevComments, comment]);
+        setUserName('');
+        setCommentContent('');
+
+        // Show success alert
+        Swal.fire({
+          icon: 'success',
+          title: 'Success!',
+          text: 'Your comment has been posted.',
+        });
+      } else {
+        // Show error alert if the post failed
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: 'Failed to post the comment. Try again.',
+        });
+      }
+    } catch (error) {
+      console.error("Error posting comment:", error);
+      // Show network error alert
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'Network error. Please try again later.',
+      });
+    }
+  };
 
   if (loading) {
     return <div className="text-center font-bold text-lg">Loading...</div>;
@@ -78,7 +139,7 @@ const ProductDetail = () => {
           <div className="flex flex-col items-center w-full lg:w-1/2">
             <div className="relative w-full h-[500px] bg-gray-200 rounded-lg overflow-hidden">
               <Image
-                src={`${imageBaseUrl}${product.photo_path}`}
+                src={`${imageBaseUrl}/static/${product.photo_path}`}
                 alt={product.name}
                 layout="fill"
                 objectFit="cover"
@@ -115,7 +176,7 @@ const ProductDetail = () => {
             </div>
 
             <div className="mt-4">
-              <h1 className="font-bold">You can also see users' Comments</h1>
+              <h1 className="font-bold">You can also see users Comments</h1>
               {comments.length > 0 ? (
                 comments.map((comment) => (
                   <div key={comment.id} className="bg-white shadow-md rounded-lg p-4 mb-4">
@@ -126,6 +187,29 @@ const ProductDetail = () => {
               ) : (
                 <p>No comments yet. Be the first to comment!</p>
               )}
+            </div>
+
+            <div className="mt-8">
+              <h2 className="font-bold text-xl mb-4">Leave a Comment</h2>
+              <input
+                type="text"
+                placeholder="Your Name"
+                className="p-2 mb-4 border border-gray-300 rounded-lg w-full"
+                value={userName}
+                onChange={(e) => setUserName(e.target.value)}
+              />
+              <textarea
+                placeholder="Your Comment"
+                className="p-2 mb-4 border border-gray-300 rounded-lg w-full"
+                value={commentContent}
+                onChange={(e) => setCommentContent(e.target.value)}
+              />
+              <button
+                className="bg-blue-500 text-white px-6 py-2 rounded-lg"
+                onClick={handlePostComment}
+              >
+                Post Comment
+              </button>
             </div>
           </div>
         </div>

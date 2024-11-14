@@ -29,14 +29,12 @@ export default function Header() {
 
   return (
     <div>
-      {/* Top Notification Bar */}
       <div className="flex justify-between items-center bg-black text-white px-5 py-2 text-sm">
         <div>
           Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%!
         </div>
       </div>
 
-      {/* Header Section */}
       <div className="flex justify-between items-center bg-white px-10 py-4 shadow-md">
         <div className="text-xl font-bold">
           <Link href="/">
@@ -87,7 +85,6 @@ export default function Header() {
           </button>
         </div>
 
-        {/* Desktop Navigation */}
         <nav className="hidden md:flex space-x-8 items-center">
           <Link href="/" passHref>
             <div className="flex items-center space-x-2">
