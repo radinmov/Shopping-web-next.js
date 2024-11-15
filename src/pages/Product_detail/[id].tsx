@@ -5,7 +5,7 @@ import './Style.css';
 import Header from "../../components/header/page";
 import Footer from "../../components/footer/page";
 import { FaStar } from 'react-icons/fa';
-import Swal from "sweetalert2"; // Import SweetAlert2
+import Swal from "sweetalert2"; 
 
 interface Product {
   id: string;
@@ -22,8 +22,8 @@ interface Product {
 
 interface Comment {
   id: number;
-  user_name: string;  
-  content: string;     
+  user_name: string;
+  content: string;
 }
 
 const ProductDetail = () => {
@@ -35,7 +35,7 @@ const ProductDetail = () => {
   const [userName, setUserName] = useState<string>('');
   const [commentContent, setCommentContent] = useState<string>('');
 
-  const imageBaseUrl = "http://188.245.175.0:8000"; 
+  const imageBaseUrl = "http://188.245.175.0:8000";
 
   useEffect(() => {
     if (id) {
@@ -45,7 +45,6 @@ const ProductDetail = () => {
           setProduct(data);
           setLoading(false);
           console.log(data);
-          
         })
         .catch((error) => {
           console.error("Error fetching product details:", error);
@@ -69,7 +68,6 @@ const ProductDetail = () => {
 
   const handlePostComment = async () => {
     if (!userName || !commentContent) {
-      // Show alert if inputs are empty
       Swal.fire({
         icon: 'warning',
         title: 'Oops...',
@@ -98,14 +96,12 @@ const ProductDetail = () => {
         setUserName('');
         setCommentContent('');
 
-        // Show success alert
         Swal.fire({
           icon: 'success',
           title: 'Success!',
           text: 'Your comment has been posted.',
         });
       } else {
-        // Show error alert if the post failed
         Swal.fire({
           icon: 'error',
           title: 'Error!',
@@ -114,7 +110,6 @@ const ProductDetail = () => {
       }
     } catch (error) {
       console.error("Error posting comment:", error);
-      // Show network error alert
       Swal.fire({
         icon: 'error',
         title: 'Error!',
@@ -150,14 +145,19 @@ const ProductDetail = () => {
 
           <div className="w-full lg:w-1/2 lg:pl-12 mt-8 lg:mt-0">
             <h1 className="text-4xl font-bold mb-4">{product.name}</h1>
-            <p className="text-red-600 text-lg mb-6">{product.price}$</p>
+            <p className="text-red-600 text-lg mb-6 font-bold">{product.price}$</p>
             <p className="text-gray-600 font-bold text-lg mb-6">{product.description}</p>
 
-            {product.options && (
+            {/* Conditionally show options if available */}
+            {product.options && (product.options.color || product.options.size) && (
               <div className="mb-6">
                 <h3 className="text-lg font-semibold">Options</h3>
-                <p>Color: {product.options.color}</p>
-                <p>Size: {product.options.size}</p>
+                {product.options.color && (
+                  <p style={{ color: product.options.color }}>
+                    Color: {product.options.color}
+                  </p>
+                )}
+                {product.options.size && <p>Size: {product.options.size}</p>}
               </div>
             )}
 
@@ -208,7 +208,7 @@ const ProductDetail = () => {
                 className="bg-blue-500 text-white px-6 py-2 rounded-lg"
                 onClick={handlePostComment}
               >
-                Post Comment
+                send  Comment
               </button>
             </div>
           </div>

@@ -3,28 +3,15 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Swal from 'sweetalert2';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faCreditCard, faShoppingCart, faHome } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faCreditCard, faShoppingCart, faHome, faLitecoinSign } from '@fortawesome/free-solid-svg-icons';
 import './Style.css';
+import { handleProtectedNavigation } from '../utils/tokenCheck';
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
-  };
-
-  const handleProtectedNavigation = (href) => {
-    const token = localStorage.getItem('Token');
-
-    if (token) {
-      window.location.href = href;
-    } else {
-      Swal.fire({
-        icon: 'warning',
-        title: 'Unauthorized',
-        text: 'You must be logged in to access this page!',
-      });
-    }
   };
 
   return (
@@ -41,8 +28,8 @@ export default function Header() {
             <Image
               src="/vimba.jpeg"
               alt="Logo"
-              width={100}
-              height={50}
+              width={200}
+              height={20}
               className="rounded-full"
             />
           </Link>
@@ -92,6 +79,12 @@ export default function Header() {
               <p>Home</p>
             </div>
           </Link>
+          <Link href="/auth/login" passHref>
+            <div className="flex items-center space-x-2 py-2 hover:bg-gray-100 rounded-md">
+              <FontAwesomeIcon icon={faLitecoinSign} />
+              <p>Login</p>
+            </div>
+          </Link>
           <Link href="/auth/register" passHref>
             <div className="flex items-center space-x-2">
               <FontAwesomeIcon icon={faUser} />
@@ -122,10 +115,16 @@ export default function Header() {
               <p>Home</p>
             </div>
           </Link>
+          <Link href="/auth/login" passHref>
+            <div className="flex items-center space-x-2 py-2 hover:bg-gray-100 rounded-md">
+              <FontAwesomeIcon icon={faLitecoinSign} />
+              <p>Login</p>
+            </div>
+          </Link>
           <Link href="/auth/register" passHref>
             <div className="flex items-center space-x-2 py-2 hover:bg-gray-100 rounded-md">
               <FontAwesomeIcon icon={faUser} />
-              <p>Profile</p>
+              <p>profile</p>
             </div>
           </Link>
           <button onClick={() => handleProtectedNavigation('/orders')} className="w-full text-left">
