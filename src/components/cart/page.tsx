@@ -11,8 +11,7 @@ const Home = () => {
     fetch("http://188.245.175.0:8000/user/products")
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
-        SetData(result); // Ensure 'result' is an array
+        SetData(result); 
       })
       .catch((error) => {
         console.error("Error fetching products:", error);

@@ -5,7 +5,8 @@ import './Style.css';
 import Header from "../../components/header/page";
 import Footer from "../../components/footer/page";
 import { FaStar } from 'react-icons/fa';
-import Swal from "sweetalert2"; 
+import Swal from "sweetalert2";
+import { handleProtectedNavigation } from "../../components/utils/tokenCheck";
 
 interface Product {
   id: string;
@@ -134,11 +135,14 @@ const ProductDetail = () => {
           <div className="flex flex-col items-center w-full lg:w-1/2">
             <div className="relative w-full h-[500px] bg-gray-200 rounded-lg overflow-hidden">
               <Image
-                src={`${imageBaseUrl}/static/${product.photo_path}`}
+                src={
+                  product.photo_path
+                    ? `${imageBaseUrl}/static${product.photo_path.startsWith('/') ? product.photo_path : `/${product.photo_path}`}`
+                    : '/default-image.jpg'
+                }
                 alt={product.name}
-                layout="fill"
-                objectFit="cover"
-                className="rounded-lg"
+                fill
+                style={{ objectFit: 'cover' }}
               />
             </div>
           </div>
