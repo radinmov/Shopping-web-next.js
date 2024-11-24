@@ -1,14 +1,19 @@
-import React, { useState } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import Swal from 'sweetalert2';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faCreditCard, faShoppingCart, faHome, faLitecoinSign } from '@fortawesome/free-solid-svg-icons';
-import './Style.css';
-import { handleProtectedNavigation } from '../utils/tokenCheck';
+import React, { useState, useEffect } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser, faCreditCard, faShoppingCart, faHome, faLitecoinSign } from "@fortawesome/free-solid-svg-icons";
+import "./Style.css";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    // Check if the token exists in localStorage
+    const token = localStorage.getItem("token");
+    setIsAuthenticated(!!token); // Convert token to a boolean value
+  }, []);
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -16,12 +21,6 @@ export default function Header() {
 
   return (
     <div>
-      <div className="flex justify-between items-center bg-black text-white px-5 py-2 text-sm">
-        <div>
-          Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%!
-        </div>
-      </div>
-
       <div className="flex justify-between items-center bg-white px-10 py-4 shadow-md">
         <div className="text-xl font-bold">
           <Link href="/">
@@ -91,18 +90,24 @@ export default function Header() {
               <p>Profile</p>
             </div>
           </Link>
-          <button onClick={() => handleProtectedNavigation('/orders')}>
-            <div className="flex items-center space-x-2">
-              <FontAwesomeIcon icon={faShoppingCart} />
-              <p>Orders</p>
-            </div>
-          </button>
-          <button onClick={() => handleProtectedNavigation('/charges')}>
-            <div className="flex items-center space-x-2">
-              <FontAwesomeIcon icon={faCreditCard} />
-              <p>Charges</p>
-            </div>
-          </button>
+
+          {/* Conditionally render Orders and Charges based on isAuthenticated */}
+          {isAuthenticated && (
+            <>
+              <Link href="/orders" passHref>
+                <div className="flex items-center space-x-2">
+                  <FontAwesomeIcon icon={faShoppingCart} />
+                  <p>Orders</p>
+                </div>
+              </Link>
+              <Link href="/charges" passHref>
+                <div className="flex items-center space-x-2">
+                  <FontAwesomeIcon icon={faCreditCard} />
+                  <p>Charges</p>
+                </div>
+              </Link>
+            </>
+          )}
         </nav>
       </div>
 
@@ -124,21 +129,27 @@ export default function Header() {
           <Link href="/auth/register" passHref>
             <div className="flex items-center space-x-2 py-2 hover:bg-gray-100 rounded-md">
               <FontAwesomeIcon icon={faUser} />
-              <p>profile</p>
+              <p>Profile</p>
             </div>
           </Link>
-          <button onClick={() => handleProtectedNavigation('/orders')} className="w-full text-left">
-            <div className="flex items-center space-x-2 py-2 hover:bg-gray-100 rounded-md">
-              <FontAwesomeIcon icon={faShoppingCart} />
-              <p>Orders</p>
-            </div>
-          </button>
-          <button onClick={() => handleProtectedNavigation('/charges')} className="w-full text-left">
-            <div className="flex items-center space-x-2 py-2 hover:bg-gray-100 rounded-md">
-              <FontAwesomeIcon icon={faCreditCard} />
-              <p>Charges</p>
-            </div>
-          </button>
+
+          {/* Conditionally render Orders and Charges for mobile navigation */}
+          {isAuthenticated && (
+            <>
+              <Link href="/orders" passHref>
+                <div className="flex items-center space-x-2 py-2 hover:bg-gray-100 rounded-md">
+                  <FontAwesomeIcon icon={faShoppingCart} />
+                  <p>Orders</p>
+                </div>
+              </Link>
+              <Link href="/charges" passHref>
+                <div className="flex items-center space-x-2 py-2 hover:bg-gray-100 rounded-md">
+                  <FontAwesomeIcon icon={faCreditCard} />
+                  <p>Charges</p>
+                </div>
+              </Link>
+            </>
+          )}
         </div>
       )}
     </div>

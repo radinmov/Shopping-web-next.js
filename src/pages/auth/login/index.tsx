@@ -118,7 +118,7 @@ export default function Login() {
             </form>
 
             <p className="mt-4 text-sm text-center text-gray-500">
-              Already have an account? <a href="#" className="text-blue-500">Login</a>
+              You don't have account? <a href="/auth/register" className="text-blue-500">Register</a>
             </p>
           </div>
         </div>

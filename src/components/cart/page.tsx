@@ -11,7 +11,7 @@ const Home = () => {
     fetch("http://188.245.175.0:8000/user/products")
       .then((response) => response.json())
       .then((result) => {
-        SetData(result); 
+        SetData(result);
       })
       .catch((error) => {
         console.error("Error fetching products:", error);
@@ -19,7 +19,7 @@ const Home = () => {
   }, []);
 
   if (!isMounted) {
-    return null; 
+    return null;
   }
 
   return (
@@ -30,12 +30,12 @@ const Home = () => {
         {Array.isArray(Data) && Data.length > 0 ? (
           Data.map((product) => (
             <div key={product.id} className="border rounded-lg shadow-md p-4 relative">
-              <div className="relative w-full h-40">
+              <div className="relative w-full h-48">
                 <Image
                   src={`http://188.245.175.0:8000/static/${product.photo_path}`}
                   alt={product.name}
                   layout="fill"
-                  objectFit="cover"
+                  objectFit="contain" // Ensure full image is visible
                   className="rounded-md"
                 />
               </div>
@@ -49,7 +49,7 @@ const Home = () => {
             </div>
           ))
         ) : (
-          <p>No products available.</p>  // Display a message when there are no products
+          <p>No products available.</p> // Display a message when there are no products
         )}
       </div>
     </div>

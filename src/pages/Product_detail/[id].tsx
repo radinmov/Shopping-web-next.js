@@ -5,8 +5,6 @@ import './Style.css';
 import Header from "../../components/header/page";
 import Footer from "../../components/footer/page";
 import { FaStar } from 'react-icons/fa';
-import Swal from "sweetalert2";
-import { handleProtectedNavigation } from "../../components/utils/tokenCheck";
 
 interface Product {
   id: string;
@@ -27,6 +25,8 @@ interface Comment {
   content: string;
 }
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://188.245.175.0:8000";
+
 const ProductDetail = () => {
   const router = useRouter();
   const { id } = router.query;
@@ -36,16 +36,19 @@ const ProductDetail = () => {
   const [userName, setUserName] = useState<string>('');
   const [commentContent, setCommentContent] = useState<string>('');
 
-  const imageBaseUrl = "http://188.245.175.0:8000";
-
   useEffect(() => {
     if (id) {
-      fetch(`http://188.245.175.0:8000/product/${id}`)
-        .then((response) => response.json())
-        .then((data) => {
-          setProduct(data);
+      fetch(`${API_BASE_URL}/product/${id}`)
+        .then(async (response) => {
+          if (response.ok) {
+            const data = await response.json();
+            setProduct(data);
+          } else {
+            const errorText = await response.text(); // Handle plain text error responses
+            console.error("Error fetching product:", errorText);
+            setProduct(null);
+          }
           setLoading(false);
-          console.log(data);
         })
         .catch((error) => {
           console.error("Error fetching product details:", error);
@@ -56,10 +59,20 @@ const ProductDetail = () => {
 
   useEffect(() => {
     if (id) {
-      fetch(`http://188.245.175.0:8000/products/${id}/comments`)
-        .then((response) => response.json())
-        .then((data) => setComments(data))
-        .catch((error) => console.error("Error fetching comments:", error));
+      fetch(`${API_BASE_URL}/products/${id}/comments`)
+        .then(async (response) => {
+          if (response.ok) {
+            const data = await response.json();
+            setComments(data);
+          } else {
+            const errorText = await response.text(); // Handle plain text error responses
+            console.error("Error fetching comments:", errorText);
+            setComments([]);
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching comments:", error);
+        });
     }
   }, [id]);
 
@@ -69,11 +82,7 @@ const ProductDetail = () => {
 
   const handlePostComment = async () => {
     if (!userName || !commentContent) {
-      Swal.fire({
-        icon: 'warning',
-        title: 'Oops...',
-        text: 'Both fields are required!',
-      });
+      alert('Both fields are required!');
       return;
     }
 
@@ -83,7 +92,7 @@ const ProductDetail = () => {
     };
 
     try {
-      const response = await fetch(`http://188.245.175.0:8000/products/${id}/comments`, {
+      const response = await fetch(`${API_BASE_URL}/products/${id}/comments`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -96,26 +105,13 @@ const ProductDetail = () => {
         setComments((prevComments) => [...prevComments, comment]);
         setUserName('');
         setCommentContent('');
-
-        Swal.fire({
-          icon: 'success',
-          title: 'Success!',
-          text: 'Your comment has been posted.',
-        });
+        alert('Your comment has been posted.');
       } else {
-        Swal.fire({
-          icon: 'error',
-          title: 'Error!',
-          text: 'Failed to post the comment. Try again.',
-        });
+        alert('Failed to post the comment. Try again.');
       }
     } catch (error) {
       console.error("Error posting comment:", error);
-      Swal.fire({
-        icon: 'error',
-        title: 'Error!',
-        text: 'Network error. Please try again later.',
-      });
+      alert('Network error. Please try again later.');
     }
   };
 
@@ -137,7 +133,7 @@ const ProductDetail = () => {
               <Image
                 src={
                   product.photo_path
-                    ? `${imageBaseUrl}/static${product.photo_path.startsWith('/') ? product.photo_path : `/${product.photo_path}`}`
+                    ? `${API_BASE_URL}/static${product.photo_path.startsWith('/') ? product.photo_path : `/${product.photo_path}`}`
                     : '/default-image.jpg'
                 }
                 alt={product.name}
@@ -180,7 +176,6 @@ const ProductDetail = () => {
             </div>
 
             <div className="mt-4">
-              <h1 className="font-bold">You can also see users Comments</h1>
               {comments.length > 0 ? (
                 comments.map((comment) => (
                   <div key={comment.id} className="bg-white shadow-md rounded-lg p-4 mb-4">
@@ -212,7 +207,7 @@ const ProductDetail = () => {
                 className="bg-blue-500 text-white px-6 py-2 rounded-lg"
                 onClick={handlePostComment}
               >
-                send  Comment
+                Send Comment
               </button>
             </div>
           </div>
