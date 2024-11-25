@@ -23,6 +23,7 @@ interface Comment {
   id: number;
   user_name: string;
   content: string;
+  rating: number; // Assuming the API returns a rating for each comment
 }
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://188.245.175.0:8000";
@@ -109,9 +110,6 @@ const ProductDetail = () => {
           title: "Success",
           text: "Your comment has been posted.",
         });
-
-        // Refresh the page after posting the comment
-        window.location.reload();  // Refresh the page to show the new comment
       } else {
         Swal.fire({
           icon: "error",
@@ -166,9 +164,7 @@ const ProductDetail = () => {
           <div className="w-full lg:w-1/2 lg:pl-12 mt-8 lg:mt-0">
             <h1 className="text-4xl font-bold mb-4">{product.name}</h1>
             <p className="text-red-600 text-lg mb-6 font-bold">{product.price}$</p>
-            <p className="text-gray-600 font-bold text-lg mb-6">
-              {product.description}
-            </p>
+            <p className="text-gray-600 font-bold text-lg mb-6">{product.description}</p>
 
             {/* Product Options */}
             {product.options && (product.options.color || product.options.size) && (
@@ -194,27 +190,42 @@ const ProductDetail = () => {
                     color={index < (product.rate || 0) ? "#ffc107" : "#e4e5e9"}
                   />
                 ))}
-                <p className="text-lg ml-4">
-                  {product.rate ? `${product.rate} / 5` : null}
-                </p>
+                <p className="text-lg ml-4">{product.rate ? `${product.rate} / 5` : null}</p>
               </div>
             </div>
 
+            {/* Comments Section */}
             <div className="mt-4">
               <h3 className="text-lg font-semibold mb-4">Comments</h3>
               <div
                 className="max-h-[300px] overflow-y-auto w-full border border-gray-300 rounded-lg p-4 bg-gray-100"
-                style={{ height: "300px" }}
+                style={{
+                  wordWrap: "break-word",
+                  overflowWrap: "break-word",
+                  height: "300px",
+                }}
               >
                 {comments.length > 0 ? (
                   comments.map((comment) => (
                     <div
                       key={comment.id}
                       className="bg-white shadow-md rounded-lg p-4 mb-4"
+                      style={{
+                        wordWrap: "break-word",
+                        overflowWrap: "break-word",
+                      }}
                     >
-                      <p className="text-lg font-semibold mb-2">
-                        {comment.user_name}
-                      </p>
+                      <p className="text-lg font-semibold mb-2">{comment.user_name}</p>
+                      <div className="flex items-center space-x-1">
+                        {[...Array(5)].map((_, index) => (
+                          <FaStar
+                            key={index}
+                            size={24}
+                            color={index < (comment.rating || 0) ? "#ffc107" : "#e4e5e9"}
+                          />
+                        ))}
+                        <p className="text-lg ml-4">{comment.rating ? `${comment.rating} / 5` : null}</p>
+                      </div>
                       <p className="text-gray-700">{comment.content}</p>
                     </div>
                   ))
